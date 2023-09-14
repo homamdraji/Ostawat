@@ -2,12 +2,16 @@
 # Codemagic UI under Apple Developer Portal integration.
 # Integration section is required to make use of the keys stored in 
 # Codemagic UI under Apple Developer Portal integration.
+# Integration section is required to make use of the keys stored in 
+# Codemagic UI under Apple Developer Portal integration.
+# Integration section is required to make use of the keys stored in 
+# Codemagic UI under Apple Developer Portal integration.
 workflows:
   ios-workflow:
     name: iOS Workflow
     max_build_duration: 30
     integrations:
-      app_store_connect: ostawatcodemagic
+      app_store_connect: Ostawat
     environment:
       ios_signing:
         distribution_type: app_store
