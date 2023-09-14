@@ -6,6 +6,8 @@
 # Codemagic UI under Apple Developer Portal integration.
 # Integration section is required to make use of the keys stored in 
 # Codemagic UI under Apple Developer Portal integration.
+# Integration section is required to make use of the keys stored in 
+# Codemagic UI under Apple Developer Portal integration.
 workflows:
   ios-workflow:
     name: iOS Workflow
@@ -14,8 +16,8 @@ workflows:
       app_store_connect: Ostawat
     environment:
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: io.Ostawat.classicCounter
+        distribution_type: development
+        bundle_identifier: osta
       vars:
         APP_STORE_APPLE_ID: 6466175365
       flutter: stable
