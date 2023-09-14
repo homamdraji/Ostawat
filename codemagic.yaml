@@ -1,16 +1,33 @@
 # Integration section is required to make use of the keys stored in 
 # Codemagic UI under Apple Developer Portal integration.
 workflows:
+  sample-workflow:
+        name: Codemagic Sample Workflow
+        max_build_duration: 30
+        instance_type: mac_mini_m1
+
+  
+        environment:
+            flutter: stable
   ios-workflow:
     name: Ostawat
     integrations:
-      app_store_connect: Ostawat
+      app_store_connect: ostawatcodemagic
 
     environment:
       # ...  
+      environment:
+      ios_signing:
+        distribution_type: app_store # or: ad_hoc | development | enterprise
+        bundle_identifier: io.Ostawat.classicCounter
+        vars:
+          APP_STORE_APPLE_ID: 6466175365
 
     scripts:
       # ...  
+      - name: Set up code signing settings on Xcode project
+      script: xcode-project use-profiles --project ios/*.xcodeproj
+
 
     publishing:
       app_store_connect:
@@ -59,3 +76,23 @@ workflows:
         # Optional. The name of the person or entity that owns the exclusive rights
         # to your app, preceded by the year the rights were obtained.
         copyright: 2023 Ostawat app
+
+          scripts:
+    - name: Set up code signing settings on Xcode project
+      script: | 
+        xcode-project use-profiles
+    - name: Get Flutter packages
+      script: | 
+        flutter packages pub get
+    - name: Install pods
+      script: | 
+        find . -name "Podfile" -execdir pod install \;
+    - name: Flutter build ipa
+      script: | 
+        flutter build ipa --release \
+          --build-name=1.0.0 \
+          --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
