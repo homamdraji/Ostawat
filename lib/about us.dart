@@ -1,6 +1,5 @@
+// ignore_for_file: file_names
 
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,7 +21,7 @@ class Aboutus extends StatelessWidget {
         padding: const EdgeInsets.all(18.0),
         child: ListView(
           children: [
-            Text(aboutus,style: TextStyle(fontSize: 18),)
+            Text(aboutus,style: const TextStyle(fontSize: 18),)
           ],
         ),
       )

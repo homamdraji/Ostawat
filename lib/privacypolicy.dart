@@ -18,11 +18,11 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         title: Text('Privacy Policy'.tr),
       ),
       body:  Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child:  Text(
           privacyPolicyText,
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
         ),
         ),
       ),

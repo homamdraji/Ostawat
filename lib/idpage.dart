@@ -1,4 +1,6 @@
 
+// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -84,7 +86,7 @@ class _IdpageState extends State<Idpage> {
           .catchError((error) => print("Failed to add user: $error"));
           } else {
           Navigator.of(context).pop();
-           // ignore: use_build_context_synchronously
+           
           showDialog(context: context, builder: (context) {
            return  AlertDialog(content: Text('try next day'.tr),);
           });
@@ -144,7 +146,7 @@ class _IdpageState extends State<Idpage> {
             color: const Color.fromARGB(255, 129, 126, 126),),
              SizedBox(child: Padding(
                padding: const EdgeInsets.all(8.0),
-               child: Text('the service include'.tr,style: TextStyle(fontSize: 20),),
+               child: Text('the service include'.tr,style: const TextStyle(fontSize: 20),),
              ),),
             
              SizedBox(

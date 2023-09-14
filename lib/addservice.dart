@@ -1,4 +1,6 @@
 
+// ignore_for_file: prefer_typing_uninitialized_variables, empty_catches, avoid_print
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -68,18 +70,13 @@ class _AddserviceState extends State<Addservice> {
           String oldImageUrl = await ref.getDownloadURL();
           if (oldImageUrl.isNotEmpty) {
             await ref.delete();
-            print('Old image deleted.');
           }
         } catch (e) {
-          print('Old image does not exist or error occurred: $e');
         }
 
-        print('Image uploaded successfully.');
       } catch (e) {
-        print('Error uploading image: $e');
       }
     } else {
-      print('No image picked.');
     }
   }
  Future<void> pickImage() async {
@@ -87,7 +84,6 @@ class _AddserviceState extends State<Addservice> {
     setState(() {
       _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
     });} catch (e) {
-      print(e);
     }
     
   }
@@ -116,9 +112,7 @@ class _AddserviceState extends State<Addservice> {
 
       });
     } else {
-      print('Document does not exist.');
     }}catch (e){
-        print('Error fetching data: $e');
     }
     finally {
       setState(() {
@@ -147,6 +141,7 @@ class _AddserviceState extends State<Addservice> {
             'fireservice': firservice,
             'imageurl' : imageurl ,
           }).whenComplete(() => Navigator.of(context).pushReplacementNamed('/homepage'))
+          
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
     } else {
@@ -165,10 +160,8 @@ class _AddserviceState extends State<Addservice> {
                       ),)],
                  );
                });
-            print('you are not subbed');
     }
   } catch (e) {
-    print('Error getting data from Firestore: $e');
    
   }  
          } else if(location == null) {
