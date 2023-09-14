@@ -1,5 +1,7 @@
 
 
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,6 +36,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
       },
       verificationFailed: (exception) {
         // Handle verification failure
+       
   final errorCode = exception.code;
   print("Error code: $errorCode");
   if (errorCode == 'network-request-failed' || errorCode == 'internal-error' ){
@@ -47,7 +50,6 @@ FirebaseAuth auth = FirebaseAuth.instance;
       },
     );
     }
-       
       },
       codeSent: (verificationId, forceResendingToken) {
         
@@ -189,7 +191,8 @@ class VerificationPage extends StatefulWidget {
 class _VerificationPageState extends State<VerificationPage> {
 
   final TextEditingController _smsCodeController = TextEditingController();
-
+  
+  
   Future<void> _verifyCodeAndSignIn() async {
     try {
       AuthCredential credential = PhoneAuthProvider.credential(
@@ -200,8 +203,6 @@ class _VerificationPageState extends State<VerificationPage> {
       await FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
          if (value.user != null){
            CollectionReference users =  FirebaseFirestore.instance.collection('service');
-
-
            await users.doc(FirebaseAuth.instance.currentUser!.uid).get().then((userDoc) async {
   if (!userDoc.exists) {
     await users.doc(FirebaseAuth.instance.currentUser!.uid).set({
@@ -242,6 +243,7 @@ class _VerificationPageState extends State<VerificationPage> {
       // Handle verification failure
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -289,9 +291,11 @@ class _VerificationPageState extends State<VerificationPage> {
                       onPressed: _verifyCodeAndSignIn,
                       child:  Text('Verify'.tr),
                     ),
+                  Text('* if code'.tr),
                   ],
                 ),
               ),
+              
             ],
           ),
         ),

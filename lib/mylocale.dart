@@ -138,6 +138,7 @@ class Mylocale implements Translations {
         "add image" : "اضف صورة" ,
         'immoral image' : 'صورة مخلة بالاخلاق',
         'you are not subbe': 'الحساب الذي تمتلكه حساب عادي',
+        '* if code' :'* اذا لم تستلم رمز التحقق عد الى صفحة ادخال رقم الهاتف',
     },
 
 
@@ -264,7 +265,7 @@ class Mylocale implements Translations {
         "add image" : "add image" ,
         'immoral image' : 'immoral image',
         'you are not subbe':  'you have a normal account' ,
-
+         '* if code' :'* if you did not receive verification code message go back to enter phone number page',
     },
   };
 
