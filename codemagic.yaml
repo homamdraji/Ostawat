@@ -17,7 +17,7 @@ workflows:
     environment:
       ios_signing:
         distribution_type: development
-        bundle_identifier: osta
+        bundle_identifier: io.Ostawat.classicCounter
       vars:
         APP_STORE_APPLE_ID: 6466175365
       flutter: stable
