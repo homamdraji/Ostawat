@@ -24,10 +24,7 @@ void main() async {
   await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,  
   );
-  await FirebaseAppCheck.instance.activate(
- webRecaptchaSiteKey: 'recaptcha-v3-site-key',
- 
-  );
+  await FirebaseAppCheck.instance.activate();
   var user = FirebaseAuth.instance.currentUser ;
   if (user == null) {
     islogin = false ;
