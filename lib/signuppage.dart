@@ -41,6 +41,14 @@ FirebaseAuth auth = FirebaseAuth.instance;
        
   final errorCode = exception.code;
   print("Error code: $errorCode");
+   showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Center(child: Text(errorCode)),
+          );
+        },
+      );
   if (errorCode == 'network-request-failed' || errorCode == 'internal-error' ){
     
         showDialog(
