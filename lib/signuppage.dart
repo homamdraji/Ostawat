@@ -19,6 +19,7 @@ import 'mylocale.dart';
 
 
 
+
 class PhoneInputPage extends StatelessWidget {
   final TextEditingController phoneNumberController = TextEditingController();
  
@@ -45,7 +46,12 @@ FirebaseAuth auth = FirebaseAuth.instance;
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Center(child: Text(errorCode)),
+            title: Center(child: Column(
+              children: [
+                Text(exception.toString()),
+                Text(errorCode),
+              ],
+            )),
           );
         },
       );
