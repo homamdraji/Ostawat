@@ -34,7 +34,7 @@ workflows:
         script: | 
           #!/usr/bin/env sh
           set -e # exit on first failed command
-          PROJECT_ROOT=$CM_BUILD_DIR/ostawat    # ADD YOUR PROJECT FOLDER PATH HERE
+          PROJECT_ROOT=$CM_BUILD_DIR    # ADD YOUR PROJECT FOLDER PATH HERE
           echo $IOS_FIREBASE_SECRET > $PROJECT_ROOT/ios/Runner/GoogleService-Info.plist
 
       - name: Set up code signing settings on Xcode project
