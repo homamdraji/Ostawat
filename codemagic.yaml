@@ -35,7 +35,7 @@ workflows:
           #!/usr/bin/env sh
           set -e # exit on first failed command
 
-          PROJECT_ROOT=$CM_BUILD_DIR/myproject/path    # ADD YOUR PROJECT FOLDER PATH HERE
+          PROJECT_ROOT=$CM_BUILD_DIR/ostawat/ios/Runner/GoogleService-Info.plist    # ADD YOUR PROJECT FOLDER PATH HERE
 
           echo $IOS_FIREBASE_SECRET > $PROJECT_ROOT/ios/Runner/GoogleService-Info.plist
 
