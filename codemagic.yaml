@@ -15,13 +15,30 @@ workflows:
     integrations:
       app_store_connect: ostawatcodemagic
     environment:
+      groups:
+        - firebase_credentials
       ios_signing:
         distribution_type: development
         bundle_identifier: io.Ostawat.classicCounter
+        
       vars:
         APP_STORE_APPLE_ID: 6466175365
       flutter: stable
     scripts:
+      - name: Load Firebase configuration
+        script: | 
+          #!/usr/bin/env sh
+          set -e # exit on first failed command
+          echo $IOS_FIREBASE_SECRET > $CM_BUILD_DIR/ios/Runner/GoogleService-Info.plist
+      - name: Load Firebase configuration
+        script: | 
+          #!/usr/bin/env sh
+          set -e # exit on first failed command
+
+          PROJECT_ROOT=$CM_BUILD_DIR/myproject/path    # ADD YOUR PROJECT FOLDER PATH HERE
+
+          echo $IOS_FIREBASE_SECRET > $PROJECT_ROOT/ios/Runner/GoogleService-Info.plist
+
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles
@@ -69,3 +86,5 @@ workflows:
         # Configuration related to App Store (optional)
         # Note: This action is performed during post-processing.
         submit_to_app_store: false
+        
+        
