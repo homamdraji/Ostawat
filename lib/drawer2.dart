@@ -91,6 +91,7 @@ class _Drawer1State extends State<Drawer1> {
                   }, child: Text(dcont[i].tr));
                 }),
             ),
+            const SizedBox(height: 50,),
             TextButton(onPressed: () async {
               Navigator.of(context).pushReplacementNamed('/signup');
               await FirebaseAuth.instance.signOut();

@@ -1,5 +1,5 @@
 
-// ignore_for_file: prefer_typing_uninitialized_variables, empty_catches, avoid_print
+// ignore_for_file: prefer_typing_uninitialized_variables, empty_catches, avoid_print, use_build_context_synchronously
 
 import 'dart:io';
 
@@ -72,6 +72,19 @@ class _AddserviceState extends State<Addservice> {
             await ref.delete();
           }
         } catch (e) {
+        showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Center(child: Column(
+              children: [
+                
+                Text(e.toString()),
+              ],
+            )),
+          );
+        },
+      );
         }
 
       } catch (e) {
@@ -140,7 +153,8 @@ class _AddserviceState extends State<Addservice> {
             'location': location,
             'fireservice': firservice,
             'imageurl' : imageurl ,
-          }).whenComplete(() => Navigator.of(context).pushReplacementNamed('/homepage'))
+          })
+          //.whenComplete(() => Navigator.of(context).pushReplacementNamed('/homepage'))
           
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
@@ -363,8 +377,6 @@ class _AddserviceState extends State<Addservice> {
               const SizedBox(
                 height: 10,
               ),
-            
-                
       ],
     );
   }

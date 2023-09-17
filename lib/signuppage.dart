@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:ostawat/loading.dart';
+import 'package:ostawat/privacypolicy.dart';
 
 import 'mylocale.dart';
 
@@ -20,13 +21,27 @@ import 'mylocale.dart';
 
 
 
-class PhoneInputPage extends StatelessWidget {
-  final TextEditingController phoneNumberController = TextEditingController();
- 
+class PhoneInputPage extends StatefulWidget {
+
   PhoneInputPage({super.key});
 
   @override
+  State<PhoneInputPage> createState() => _PhoneInputPageState();
+}
+
+class _PhoneInputPageState extends State<PhoneInputPage> {
+  final TextEditingController phoneNumberController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
+
+      bool _isAgreedToTerms = false;
+  void agree (newValue) {
+                  setState(() {
+                    _isAgreedToTerms = newValue!;
+                  });
+                }
+  
     GlobalKey<FormState> formkeystate = GlobalKey<FormState>();
 FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -42,19 +57,19 @@ FirebaseAuth auth = FirebaseAuth.instance;
        
   final errorCode = exception.code;
   print("Error code: $errorCode");
-   showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Center(child: Column(
-              children: [
-                Text(exception.toString()),
-                Text(errorCode),
-              ],
-            )),
-          );
-        },
-      );
+  //  showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           title: Center(child: Column(
+  //             children: [
+  //               Text(exception.toString()),
+  //               Text(errorCode),
+  //             ],
+  //           )),
+  //         );
+  //       },
+  //     );
   if (errorCode == 'network-request-failed' || errorCode == 'internal-error' ){
     
         showDialog(
@@ -159,14 +174,51 @@ Mylocalecontroller localecont = Get.find();
                   ))
             
                  ),
-    
+                
+                const SizedBox(height: 10,),
+
+          Row(
+                children: [
+                  Checkbox(
+                    value: _isAgreedToTerms,
+                    onChanged: agree, 
+                  ),
+                  Text("I agree to ".tr),
+                  TextButton(
+                    onPressed: (){ 
+                       Navigator.push(context,
+                   MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()),);
+                    },
+                    child: Text('Privacy Policy'.tr),
+                  ),
+                  Text(" and ".tr),
+                  TextButton(
+                    onPressed: (){
+                      Navigator.push(context,
+                   MaterialPageRoute(builder: (context) => const Termsofuse()),);
+                    },
+                    child: Text('Terms'.tr),
+                  ),
+                ],
+              ),
+          const SizedBox(height: 10,),
                 Container(
                    padding: const EdgeInsets.all(10),
                    margin: const EdgeInsets.all(10),
                   child: Column(
                     children: [
+
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: !_isAgreedToTerms? 
+                        (){
+                  showDialog(context: context, 
+                    builder: (context){
+                  return  AlertDialog(
+                   title: Center(child: Text('you should agree to privacy'.tr)),
+                    );
+                    });
+                    } 
+                        :() {
                            var formdata = formkeystate.currentState;
                            if (formdata!.validate()){
                             
@@ -174,8 +226,7 @@ Mylocalecontroller localecont = Get.find();
                             signUpWithPhoneNumber();
                             print('+964${phoneNumberController.text}');
                             }
-                       
-                        },
+                        } ,
                         child:  Text('Next'.tr),
                       ),
                     ],
