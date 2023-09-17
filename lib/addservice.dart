@@ -87,6 +87,18 @@ class _AddserviceState extends State<Addservice> {
         }
 
       } catch (e) {
+         showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Center(child: Column(
+              children: [
+                Text(e.toString()),
+              ],
+            )),
+          );
+        },
+      );
       }
     } else {
     }
