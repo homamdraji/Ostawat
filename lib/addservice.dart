@@ -164,8 +164,7 @@ class _AddserviceState extends State<Addservice> {
             'location': location,
             'fireservice': firservice,
             'imageurl' : imageurl ,
-          })
-          //.whenComplete(() => Navigator.of(context).pushReplacementNamed('/homepage'))
+          }).whenComplete(() => Navigator.of(context).pushReplacementNamed('/homepage'))
           
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
