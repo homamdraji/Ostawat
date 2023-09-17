@@ -1,8 +1,6 @@
 
 // ignore_for_file: prefer_typing_uninitialized_variables, empty_catches, avoid_print, use_build_context_synchronously
 
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -12,8 +10,6 @@ import 'package:get/get.dart';
 import 'package:ostawat/hbody.dart';
 import 'package:ostawat/loading.dart';
 
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_picker/image_picker.dart';
   List gover = [
 'بغداد',
 'واسط',
@@ -53,64 +49,10 @@ class _AddserviceState extends State<Addservice> {
   final GlobalKey<FormState> formke = GlobalKey<FormState>();
   Map<String, dynamic>? data;
   bool isLoading = true; 
- final ImagePicker _imagePicker = ImagePicker();
-  File? _pickedImage;
+
+
   
-  Future<void> uploadAndDeleteImage(String userId) async {
-    if (_pickedImage != null) {
-      final storage = FirebaseStorage.instance;
-      final ref = storage.ref().child('profile_images/$userId.jpg');
-
-      try {
-        // Upload new image
-        await ref.putFile(_pickedImage!);
-        imageurl = await ref.getDownloadURL();
-        // Delete old image if it exists
-        try {
-          String oldImageUrl = await ref.getDownloadURL();
-          if (oldImageUrl.isNotEmpty) {
-            await ref.delete();
-          }
-        } catch (e) {
-        showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Center(child: Column(
-              children: [
-                Text(e.toString()),
-              ],
-            )),
-          );
-        },
-      );
-        }
-
-      } catch (e) {
-         showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Center(child: Column(
-              children: [
-                Text(e.toString()),
-              ],
-            )),
-          );
-        },
-      );
-      }
-    } else {
-    }
-  }
- Future<void> pickImage() async {
-  try{  final pickedImage = await _imagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
-    });} catch (e) {
-    }
-    
-  }
+ 
 
 
 
@@ -235,26 +177,14 @@ class _AddserviceState extends State<Addservice> {
                 // Submit button
                 return Column(
                   children: [
-                     Center(
-                      child: ElevatedButton(
-                        onPressed: pickImage,
-                        child: Text("add image".tr),
-                      ),
-                    ),
-
                     Center(
                       child: ElevatedButton(
                         onPressed: (){
-                       
-                          if (_pickedImage != null) {
+                        
                             save();
-                            uploadAndDeleteImage(FirebaseAuth.instance.currentUser!.uid); // Replace with the actual user ID
-                            setState(() {
-                              _pickedImage = null; // Reset the picked image
-                            });
-                          } else {
-                           save();
-                          }
+                            // Replace with the actual user ID
+                          
+                          
                         } ,
                         child: Text("save".tr),
                       ),

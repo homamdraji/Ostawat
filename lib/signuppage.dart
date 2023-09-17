@@ -31,16 +31,16 @@ class PhoneInputPage extends StatefulWidget {
 
 class _PhoneInputPageState extends State<PhoneInputPage> {
   final TextEditingController phoneNumberController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-
-      bool _isAgreedToTerms = false;
+  bool _isAgreedToTerms = false;
   void agree (newValue) {
                   setState(() {
                     _isAgreedToTerms = newValue!;
                   });
                 }
+  @override
+  Widget build(BuildContext context) {
+
+    
   
     GlobalKey<FormState> formkeystate = GlobalKey<FormState>();
 FirebaseAuth auth = FirebaseAuth.instance;

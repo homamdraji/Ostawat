@@ -82,7 +82,7 @@ class _Drawer1State extends State<Drawer1> {
               
             const SizedBox(height: 20,),
             SizedBox(
-              height: 100,
+              height: 150,
               child: ListView.builder(itemCount: dcont.length,
                 itemBuilder: (context , i) {return
                   TextButton(onPressed: (){
@@ -91,7 +91,7 @@ class _Drawer1State extends State<Drawer1> {
                   }, child: Text(dcont[i].tr));
                 }),
             ),
-            const SizedBox(height: 50,),
+          
             TextButton(onPressed: () async {
               Navigator.of(context).pushReplacementNamed('/signup');
               await FirebaseAuth.instance.signOut();
