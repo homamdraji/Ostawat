@@ -85,10 +85,10 @@ class Mainp extends StatelessWidget {
        
         debugShowCheckedModeBanner: false,
         
-        home: islogin == false ?  PhoneInputPage() : const Homepage(),
+        home: islogin == false ?  const PhoneInputPage() : const Homepage(),
         routes: {
           // '/signin' :(context) => const Signin(),
-          '/signup' :(context) =>  PhoneInputPage(),
+          '/signup' :(context) =>  const PhoneInputPage(),
           '/homepage' : (context) => const Homepage(),
           }),
     );}

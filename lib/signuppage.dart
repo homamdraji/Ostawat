@@ -1,6 +1,6 @@
 
 
-// ignore_for_file: avoid_print, use_build_context_synchronously
+// ignore_for_file: avoid_print, use_build_context_synchronously, no_leading_underscores_for_local_identifiers
 
 import 'dart:async';
 
@@ -23,7 +23,7 @@ import 'mylocale.dart';
 
 class PhoneInputPage extends StatefulWidget {
 
-  PhoneInputPage({super.key});
+  const PhoneInputPage({super.key});
 
   @override
   State<PhoneInputPage> createState() => _PhoneInputPageState();
