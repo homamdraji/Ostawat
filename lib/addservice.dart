@@ -356,7 +356,19 @@ class _AddserviceState extends State<Addservice> {
     if (_pickedImage != null) {
       final storage = FirebaseStorage.instance;
       final ref = storage.ref().child('profile_images/$userId.jpg');
-
+        showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Column(
+              children: [
+                 Center(child: Text('iamge picked')),
+               
+              ],
+            ),
+          );
+        },
+      );
       try {
         
         // Upload new image
@@ -364,6 +376,19 @@ class _AddserviceState extends State<Addservice> {
     customMetadata: {'app-check': 'true'},
   ),);
    imageUrl = await ref.getDownloadURL();
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Column(
+              children: [
+                 Center(child: Text(imageUrl.toString())),
+                
+              ],
+            ),
+          );
+        },
+      );
         // Delete old image if it exists
         try {
           String oldImageUrl = await ref.getDownloadURL();
@@ -544,9 +569,7 @@ class _AddserviceState extends State<Addservice> {
                              if (_pickedImage != null) {
                               save();
                               uploadAndDeleteImage(FirebaseAuth.instance.currentUser!.uid); // Replace with the actual user ID
-                              setState(() {
-                                _pickedImage = null; // Reset the picked image
-                              });
+                              
                             } else {
                               save();
                             }
