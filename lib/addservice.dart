@@ -154,46 +154,51 @@ class _AddserviceState extends State<Addservice> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('add service'.tr),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Form(
-          key: formke,
-          autovalidateMode: AutovalidateMode.always,
-          child: ListView.builder(
-            itemCount: 1 + (data != null ? 1 : 0), // Data form + Submit button
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                // Data form
-                if (data != null) {
-                  return buildit(data!);
-                }  if (isLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              } else {
-                // Submit button
-                return Column(
-                  children: [
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: (){
-                        
-                            save();
-                            // Replace with the actual user ID
+    return GestureDetector(
+       onTap: () {
+        // FocusScope.of(context).unfocus() will hide the keyboard.
+        FocusScope.of(context).unfocus();},
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('add service'.tr),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Form(
+            key: formke,
+            autovalidateMode: AutovalidateMode.always,
+            child: ListView.builder(
+              itemCount: 1 + (data != null ? 1 : 0), // Data form + Submit button
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  // Data form
+                  if (data != null) {
+                    return buildit(data!);
+                  }  if (isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                } else {
+                  // Submit button
+                  return Column(
+                    children: [
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: (){
                           
-                          
-                        } ,
-                        child: Text("save".tr),
+                              save();
+                              // Replace with the actual user ID
+                            
+                            
+                          } ,
+                          child: Text("save".tr),
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              }
-              return null;
-            },
+                    ],
+                  );
+                }
+                return null;
+              },
+            ),
           ),
         ),
       ),

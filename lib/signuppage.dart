@@ -57,19 +57,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
        
   final errorCode = exception.code;
   print("Error code: $errorCode");
-  //  showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return AlertDialog(
-  //           title: Center(child: Column(
-  //             children: [
-  //               Text(exception.toString()),
-  //               Text(errorCode),
-  //             ],
-  //           )),
-  //         );
-  //       },
-  //     );
+ 
   if (errorCode == 'network-request-failed' || errorCode == 'internal-error' ){
     
         showDialog(
@@ -101,138 +89,143 @@ Mylocalecontroller localecont = Get.find();
         // Prevent back navigation from this page
         return false;
       },
-      child: Scaffold(
-        appBar: AppBar( automaticallyImplyLeading: false,
-        actions: [ PopupMenuButton(
-                  icon: const Icon(Icons.language),
-                    itemBuilder: (context) => [
-                     PopupMenuItem(
-                      onTap: () {
-                        localecont.changelang('ar');
-                      },
-                    child:  Text('Arabic'.tr),
-                        ),
-                         PopupMenuItem(onTap: () {
-                           localecont.changelang('en');
-                         },
-                    child: Text('English'.tr),
-                        ),
-                        ],
-      )],
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: [
-    
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(child: Text('Ostawat'.tr , style: const TextStyle( 
-                    color: Color.fromRGBO(46,204,113,1),
-                    fontSize: 70,
-                    fontFamily: 'lato'
-                  ),)),
-                ),
-               
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(child: Text('Enter Phone Number'.tr,
-                   style: const TextStyle( 
-                    color: Color.fromRGBO(46,204,113,1),
-                  ),
-                  )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Form(
-                    key: formkeystate,
-                    child: Column(
-                    children: [
-                         TextFormField(
-                    validator: (text){
-                  
-                     if ( text!.isEmpty   ){
-                        return 'should not be empty'.tr ;
-                     } 
-                      if ( text.length != 10  ){
-                        return 'should equal 10'.tr ;
-                     } 
-                      return null;
-                         },
-                    maxLines: 1,
-                    maxLength: 10,
-                    controller: phoneNumberController,
-                    
-                    keyboardType: TextInputType.phone,
-                    decoration:  InputDecoration( prefixText: '+964',
-                      labelText: 'Phone Number'.tr),
-                    
-                  ),
-                    ],
-                 
-                  ))
-            
-                 ),
-                
-                const SizedBox(height: 10,),
-
-          Row(
+      child: GestureDetector(
+         onTap: () {
+        // FocusScope.of(context).unfocus() will hide the keyboard.
+        FocusScope.of(context).unfocus();},
+        child: Scaffold(
+          appBar: AppBar( automaticallyImplyLeading: false,
+          actions: [ PopupMenuButton(
+                    icon: const Icon(Icons.language),
+                      itemBuilder: (context) => [
+                       PopupMenuItem(
+                        onTap: () {
+                          localecont.changelang('ar');
+                        },
+                      child:  Text('Arabic'.tr),
+                          ),
+                           PopupMenuItem(onTap: () {
+                             localecont.changelang('en');
+                           },
+                      child: Text('English'.tr),
+                          ),
+                          ],
+        )],
+          ),
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView(
                 children: [
-                  Checkbox(
-                    value: _isAgreedToTerms,
-                    onChanged: agree, 
+          
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(child: Text('Ostawat'.tr , style: const TextStyle( 
+                      color: Color.fromRGBO(46,204,113,1),
+                      fontSize: 70,
+                      fontFamily: 'lato'
+                    ),)),
                   ),
-                  Text("I agree to ".tr),
-                  TextButton(
-                    onPressed: (){ 
-                       Navigator.push(context,
-                   MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()),);
-                    },
-                    child: Text('Privacy Policy'.tr),
+                 
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(child: Text('Enter Phone Number'.tr,
+                     style: const TextStyle( 
+                      color: Color.fromRGBO(46,204,113,1),
+                    ),
+                    )),
                   ),
-                  Text(" and ".tr),
-                  TextButton(
-                    onPressed: (){
-                      Navigator.push(context,
-                   MaterialPageRoute(builder: (context) => const Termsofuse()),);
-                    },
-                    child: Text('Terms'.tr),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Form(
+                      key: formkeystate,
+                      child: Column(
+                      children: [
+                           TextFormField(
+                      validator: (text){
+                    
+                       if ( text!.isEmpty   ){
+                          return 'should not be empty'.tr ;
+                       } 
+                        if ( text.length != 10  ){
+                          return 'should equal 10'.tr ;
+                       } 
+                        return null;
+                           },
+                      maxLines: 1,
+                      maxLength: 10,
+                      controller: phoneNumberController,
+                      
+                      keyboardType: TextInputType.phone,
+                      decoration:  InputDecoration( prefixText: '+964',
+                        labelText: 'Phone Number'.tr),
+                      
+                    ),
+                      ],
+                   
+                    ))
+              
+                   ),
+                  
+                  const SizedBox(height: 10,),
+      
+            Row(
+                  children: [
+                    Checkbox(
+                      value: _isAgreedToTerms,
+                      onChanged: agree, 
+                    ),
+                    Text("I agree to ".tr),
+                    TextButton(
+                      onPressed: (){ 
+                         Navigator.push(context,
+                     MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()),);
+                      },
+                      child: Text('Privacy Policy'.tr),
+                    ),
+                    Text(" and ".tr),
+                    TextButton(
+                      onPressed: (){
+                        Navigator.push(context,
+                     MaterialPageRoute(builder: (context) => const Termsofuse()),);
+                      },
+                      child: Text('Terms'.tr),
+                    ),
+                  ],
+                ),
+            const SizedBox(height: 10,),
+                  Container(
+                     padding: const EdgeInsets.all(10),
+                     margin: const EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+      
+                        ElevatedButton(
+                          onPressed: !_isAgreedToTerms? 
+                          (){
+                    showDialog(context: context, 
+                      builder: (context){
+                    return  AlertDialog(
+                     title: Center(child: Text('you should agree to privacy'.tr)),
+                      );
+                      });
+                      } 
+                          :() {
+                             var formdata = formkeystate.currentState;
+                             if (formdata!.validate()){
+                              
+                              showloading(context);
+                              signUpWithPhoneNumber();
+                              print('+964${phoneNumberController.text}');
+                              }
+                          } ,
+                          child:  Text('Next'.tr),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
-          const SizedBox(height: 10,),
-                Container(
-                   padding: const EdgeInsets.all(10),
-                   margin: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-
-                      ElevatedButton(
-                        onPressed: !_isAgreedToTerms? 
-                        (){
-                  showDialog(context: context, 
-                    builder: (context){
-                  return  AlertDialog(
-                   title: Center(child: Text('you should agree to privacy'.tr)),
-                    );
-                    });
-                    } 
-                        :() {
-                           var formdata = formkeystate.currentState;
-                           if (formdata!.validate()){
-                            
-                            showloading(context);
-                            signUpWithPhoneNumber();
-                            print('+964${phoneNumberController.text}');
-                            }
-                        } ,
-                        child:  Text('Next'.tr),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
             ),
           ),
         ),
@@ -314,56 +307,61 @@ class _VerificationPageState extends State<VerificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            children: [
-              const SizedBox(height: 50,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(child: Text('Verify Phone Number'.tr,style: const TextStyle( 
-                  color: Color.fromRGBO(46,204,113,1),
-                ),),
+    return GestureDetector(
+       onTap: () {
+        // FocusScope.of(context).unfocus() will hide the keyboard.
+        FocusScope.of(context).unfocus();},
+      child: Scaffold(
+        appBar: AppBar(),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView(
+              children: [
+                const SizedBox(height: 50,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(child: Text('Verify Phone Number'.tr,style: const TextStyle( 
+                    color: Color.fromRGBO(46,204,113,1),
+                  ),),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                     Text('Enter the SMS code sent to '.tr),
-                    Text('964${widget.phoneNumber}+'.tr),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                       Text('Enter the SMS code sent to '.tr),
+                      Text('964${widget.phoneNumber}+'.tr),
+                    ],
+                  ),
                 ),
-              ),
-              TextFormField(
-                 validator: (text){
+                TextFormField(
+                   validator: (text){
+                  
+                     if ( text!.isEmpty   ){
+                        return 'should not be empty'.tr ;
+                     } 
+                      return null;
+                         },
+                  controller: _smsCodeController,
+                  keyboardType: TextInputType.number,
+                  decoration:  InputDecoration(labelText: 'SMS Code'.tr),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: _verifyCodeAndSignIn,
+                        child:  Text('Verify'.tr),
+                      ),
+                    Text('* if code'.tr),
+                    ],
+                  ),
+                ),
                 
-                   if ( text!.isEmpty   ){
-                      return 'should not be empty'.tr ;
-                   } 
-                    return null;
-                       },
-                controller: _smsCodeController,
-                keyboardType: TextInputType.number,
-                decoration:  InputDecoration(labelText: 'SMS Code'.tr),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: _verifyCodeAndSignIn,
-                      child:  Text('Verify'.tr),
-                    ),
-                  Text('* if code'.tr),
-                  ],
-                ),
-              ),
-              
-            ],
+              ],
+            ),
           ),
         ),
       ),

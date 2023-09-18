@@ -123,75 +123,80 @@ class _ServicepaState extends State<Servicepa> {
              )
           );
       }
-    return Scaffold(
-      appBar:AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return SingleChildScrollView(
-                    child: AlertDialog(
-                      actions: [
-                        DropdownMenu(
-                          initialSelection: gover[0],
-                          leadingIcon: const Icon(Icons.location_on),
-                          onSelected: (value) {
-                            setState(() {
-                              locationfilter = value;
-                            });
-                            _fetchAndBuild(10);
-                          },
-                          menuHeight: double.infinity - 400,
-                          dropdownMenuEntries: gover
-                              .map((e) =>
-                                  DropdownMenuEntry(value: e, label: '$e'.tr))
-                              .toList(),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('cancel'.tr),
-                        )
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-            icon: const Icon(Icons.location_on),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(20),
-            child: TextField(
-              onChanged: (val) {
-                setState(() {
-                  query = val;
-                });
-               _fetchAndBuild(10);
+    return GestureDetector(
+       onTap: () {
+        // FocusScope.of(context).unfocus() will hide the keyboard.
+        FocusScope.of(context).unfocus();},
+      child: Scaffold(
+        appBar:AppBar(
+          actions: [
+            IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return SingleChildScrollView(
+                      child: AlertDialog(
+                        actions: [
+                          DropdownMenu(
+                            initialSelection: gover[0],
+                            leadingIcon: const Icon(Icons.location_on),
+                            onSelected: (value) {
+                              setState(() {
+                                locationfilter = value;
+                              });
+                              _fetchAndBuild(10);
+                            },
+                            menuHeight: double.infinity - 400,
+                            dropdownMenuEntries: gover
+                                .map((e) =>
+                                    DropdownMenuEntry(value: e, label: '$e'.tr))
+                                .toList(),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('cancel'.tr),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                );
               },
+              icon: const Icon(Icons.location_on),
             ),
-          ),
-         Expanded(
-          child: isLoading
-              ? const Center(child: CircularProgressIndicator()) // Show progress indicator while loading
-              : dataList.isEmpty
-                  ?  Center(child: Text('No data available.'.tr))
-                  : ListView.builder(
-                      controller: _scrollController,
-                      itemCount: dataList.length,
-                      itemBuilder: (context, index) {
-                        return bui(dataList[index]);
-                      },
-                    ),
+          ],
         ),
-        ],
+        body: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(20),
+              child: TextField(
+                onChanged: (val) {
+                  setState(() {
+                    query = val;
+                  });
+                 _fetchAndBuild(10);
+                },
+              ),
+            ),
+           Expanded(
+            child: isLoading
+                ? const Center(child: CircularProgressIndicator()) // Show progress indicator while loading
+                : dataList.isEmpty
+                    ?  Center(child: Text('No data available.'.tr))
+                    : ListView.builder(
+                        controller: _scrollController,
+                        itemCount: dataList.length,
+                        itemBuilder: (context, index) {
+                          return bui(dataList[index]);
+                        },
+                      ),
+          ),
+          ],
+        ),
       ),
     );
   }
