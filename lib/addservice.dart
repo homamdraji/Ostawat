@@ -355,7 +355,7 @@ class _AddserviceState extends State<Addservice> {
   Future<void> uploadAndDeleteImage(String userId) async {
     if (_pickedImage != null) {
       final storage = FirebaseStorage.instance;
-      final ref = storage.ref().child('profile_images/$userId.jpg');
+      final ref = storage.ref().child('$userId.jpg');
         showDialog(
         context: context,
         builder: (context) {
@@ -487,7 +487,8 @@ class _AddserviceState extends State<Addservice> {
             'location': location,
             'fireservice': firservice,
              'imageUrl': imageUrl,
-          }).whenComplete(() => Navigator.of(context).pushReplacementNamed('/homepage'))
+          })
+          // .whenComplete(() => Navigator.of(context).pushReplacementNamed('/homepage'))
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
     } else {
