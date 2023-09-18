@@ -1,14 +1,20 @@
 
 // ignore_for_file: prefer_typing_uninitialized_variables, empty_catches, avoid_print, use_build_context_synchronously
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:ostawat/hbody.dart';
 import 'package:ostawat/loading.dart';
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+
 
   List gover = [
 'بغداد',
@@ -42,17 +48,66 @@ class Addservice extends StatefulWidget {
 }
 
 class _AddserviceState extends State<Addservice> {
-  
- 
-        var servicetitle, name, describtion, location , firservice , imageurl;
+        var servicetitle, name, describtion, location , firservice;
          bool _isServiceFree = false;
   final GlobalKey<FormState> formke = GlobalKey<FormState>();
   Map<String, dynamic>? data;
   bool isLoading = true; 
-
-
+ final ImagePicker _imagePicker = ImagePicker();
+  File? _pickedImage;
   
- 
+  Future<void> uploadAndDeleteImage(String userId) async {
+    if (_pickedImage != null) {
+      final storage = FirebaseStorage.instance;
+      final ref = storage.ref().child('profile_images/$userId.jpg');
+
+      try {
+        
+        // Upload new image
+        await ref.putFile(_pickedImage!,);
+        // Delete old image if it exists
+        try {
+          String oldImageUrl = await ref.getDownloadURL();
+          if (oldImageUrl.isNotEmpty) {
+            await ref.delete();
+            print('Old image deleted.');
+          }
+        } on FirebaseException catch (e) {
+  // Caught an exception from Firebase.
+  print("Failed with error '${e.code}': ${e.message}");
+}
+
+        print('Image uploaded successfully.');
+      } on FirebaseException catch (e) {
+  // Caught an exception from Firebase.
+  print("Failed with error '${e.code}': ${e.message}");
+   showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Column(
+              children: [
+                 Center(child: Text(e.message.toString())),
+                Center(child: Text(e.code)),
+              ],
+            ),
+          );
+        },
+      );
+}
+    } else {
+      print('No image picked.');
+    }
+  }
+ Future<void> pickImage() async {
+  try{  final pickedImage = await _imagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
+    });} catch (e) {
+      print(e);
+    }
+    
+  }
 
 
 
@@ -78,7 +133,9 @@ class _AddserviceState extends State<Addservice> {
 
       });
     } else {
+      print('Document does not exist.');
     }}catch (e){
+        print('Error fetching data: $e');
     }
     finally {
       setState(() {
@@ -105,9 +162,8 @@ class _AddserviceState extends State<Addservice> {
             'describtion': describtion,
             'location': location,
             'fireservice': firservice,
-            'imageurl' : imageurl ,
+            
           }).whenComplete(() => Navigator.of(context).pushReplacementNamed('/homepage'))
-          
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
     } else {
@@ -115,19 +171,14 @@ class _AddserviceState extends State<Addservice> {
        showDialog(context: context, 
                     builder: (context){
                   return  AlertDialog(
-                   title: Center(child: Text('you are not subbe'.tr)),
-                      content: SizedBox(
-                        child: Text('you are not subbed'.tr),
-                        
-                      ),
-                      actions: const [Center(child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('07803784984', style: TextStyle(fontSize: 20),),
-                      ),)],
+                   title: Center(child: Text('you are not subbed'.tr)),
+                      
                  );
                });
+            print('you are not subbed');
     }
   } catch (e) {
+    print('Error getting data from Firestore: $e');
    
   }  
          } else if(location == null) {
@@ -181,14 +232,25 @@ class _AddserviceState extends State<Addservice> {
                   // Submit button
                   return Column(
                     children: [
+                       Center(
+                        child: ElevatedButton(
+                          onPressed: pickImage,
+                          child: Text("add image".tr),
+                        ),
+                      ),
+    
                       Center(
                         child: ElevatedButton(
                           onPressed: (){
-                          
+                             if (_pickedImage != null) {
                               save();
-                              // Replace with the actual user ID
-                            
-                            
+                              uploadAndDeleteImage(FirebaseAuth.instance.currentUser!.uid); // Replace with the actual user ID
+                              setState(() {
+                                _pickedImage = null; // Reset the picked image
+                              });
+                            } else {
+                              save();
+                            }
                           } ,
                           child: Text("save".tr),
                         ),
@@ -298,7 +360,7 @@ class _AddserviceState extends State<Addservice> {
                 leadingIcon: const Icon(Icons.location_on,) ,
                   onSelected: (value) {
                           location = value ;
-                          
+                          print(location);
                         },
                           menuHeight: double.infinity-400,
                           
@@ -313,7 +375,7 @@ class _AddserviceState extends State<Addservice> {
                 leadingIcon: const Icon(Icons.category_sharp, ) ,
                   onSelected: (value) {
                           firservice = value ;
-                        
+                          print(firservice);
                         },
                           menuHeight: double.infinity-400,
                           dropdownMenuEntries: service.map((e) => DropdownMenuEntry(value: e , label: '$e'.tr)).toList()
@@ -322,6 +384,8 @@ class _AddserviceState extends State<Addservice> {
               const SizedBox(
                 height: 10,
               ),
+            
+                
       ],
     );
   }
