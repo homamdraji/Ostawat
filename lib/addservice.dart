@@ -4,6 +4,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -370,10 +371,23 @@ class _AddserviceState extends State<Addservice> {
         },
       );
       try {
-        
+        final appCheckToken = await FirebaseAppCheck.instance.getToken();
+        showDialog(
+        context: context,
+        builder: (context) {
+          return  AlertDialog(
+            title: Column(
+              children: [
+                 Center(child: Text('$appCheckToken')),
+               
+              ],
+            ),
+          );
+        },
+      );
         // Upload new image
         await ref.putFile(_pickedImage!, SettableMetadata(
-    customMetadata: {'app-check': 'true'},
+    customMetadata: {"X-Firebase-AppCheck" : '$appCheckToken'},
   ),);
    imageUrl = await ref.getDownloadURL();
     showDialog(
@@ -568,9 +582,8 @@ class _AddserviceState extends State<Addservice> {
                         child: ElevatedButton(
                           onPressed: (){
                              if (_pickedImage != null) {
-                              save();
                               uploadAndDeleteImage(FirebaseAuth.instance.currentUser!.uid); // Replace with the actual user ID
-                              
+                              save();
                             } else {
                               save();
                             }
