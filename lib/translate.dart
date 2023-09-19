@@ -9,7 +9,7 @@ App Overview:
 Ostawat is a mobile application that connects individuals ("Professionals") providing their professions, skills, and services ("Services") to customers ("Customers") seeking these Services for business purposes. The App aims to facilitate interactions between Professionals and Customers, providing a platform for effective communication and service provision.
 
 Eligibility:
-You must be at least 16 years old or of the legal age to form a binding contract in your jurisdiction to use the App. By using the App, you represent and warrant that you meet these eligibility requirements and that all information you provide during registration or use of the App is accurate and complete.
+You must be at least 4 years old or of the legal age to form a binding contract in your jurisdiction to use the App. By using the App, you represent and warrant that you meet these eligibility requirements and that all information you provide during registration or use of the App is accurate and complete.
 
 User Accounts:
 a. Account Creation: To use certain features of the App, you may be required to create an account. You agree to provide accurate and current information during the registration process and to keep your account credentials secure and confidential.
@@ -135,7 +135,7 @@ String termsar = '''
 [اسطاوات] هو تطبيق محمول يربط الأفراد ("المحترفون") الذين يقدمون مهنهم ومهاراتهم وخدماتهم ("الخدمات") بالعملاء ("العملاء") الذين يبحثون عن هذه الخدمات لأغراض تجارية. يهدف التطبيق إلى تسهيل التفاعل بين المحترفين والعملاء، وتوفير منصة للتواصل الفعال وتقديم الخدمات.
 
 الأهلية:
-يجب أن تكون على الأقل 16 عامًا أو بلغت السن القانونية لتكوين عقد ملزم في دولتك لاستخدام التطبيق. باستخدام التطبيق، تمثل وتضمن أنك تفي بمتطلبات الأهلية هذه وأن جميع المعلومات التي تقدمها أثناء التسجيل أو استخدام التطبيق دقيقة وكاملة.
+يجب أن تكون على الأقل 4 عامًا أو بلغت السن القانونية لتكوين عقد ملزم في دولتك لاستخدام التطبيق. باستخدام التطبيق، تمثل وتضمن أنك تفي بمتطلبات الأهلية هذه وأن جميع المعلومات التي تقدمها أثناء التسجيل أو استخدام التطبيق دقيقة وكاملة.
 
 حسابات المستخدم:
 أ. إنشاء حساب: لاستخدام بعض ميزات التطبيق، قد يُطلب منك إنشاء حساب. توافق على تقديم معلومات دقيقة وحديثة أثناء عملية التسجيل والحفاظ على بيانات حسابك آمنة وسرية.

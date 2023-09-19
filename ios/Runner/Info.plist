@@ -6,8 +6,7 @@
     <array>
         <string>https</string>
     </array>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>We need access to your photo library to pick images.</string>
+   
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

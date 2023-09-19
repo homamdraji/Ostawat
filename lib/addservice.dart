@@ -1,16 +1,16 @@
 
 // ignore_for_file: prefer_typing_uninitialized_variables, empty_catches, avoid_print, use_build_context_synchronously
 
-import 'dart:io';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:ostawat/hbody.dart';
 import 'package:ostawat/loading.dart';
 
@@ -350,102 +350,106 @@ class _AddserviceState extends State<Addservice> {
   final GlobalKey<FormState> formke = GlobalKey<FormState>();
   Map<String, dynamic>? data;
   bool isLoading = true; 
- final ImagePicker _imagePicker = ImagePicker();
-  File? _pickedImage;
-  String? imageUrl;
-  Future<void> uploadAndDeleteImage(String userId) async {
-    if (_pickedImage != null) {
-      final storage = FirebaseStorage.instance;
-      final ref = storage.ref().child('$userId.jpg');
-        showDialog(
-        context: context,
-        builder: (context) {
-          return const AlertDialog(
-            title: Column(
-              children: [
-                 Center(child: Text('iamge picked')),
-               
-              ],
-            ),
-          );
-        },
-      );
-      try {
-        final appCheckToken = await FirebaseAppCheck.instance.getToken();
-        showDialog(
-        context: context,
-        builder: (context) {
-          return  AlertDialog(
-            title: Column(
-              children: [
-                 Center(child: Text('$appCheckToken')),
-               
-              ],
-            ),
-          );
-        },
-      );
-        // Upload new image
-        await ref.putFile(_pickedImage!, SettableMetadata(
-    customMetadata: {"X-Firebase-AppCheck" : '$appCheckToken'},
-  ),);
-   imageUrl = await ref.getDownloadURL();
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Column(
-              children: [
-                 Center(child: Text(imageUrl.toString())),
-                
-              ],
-            ),
-          );
-        },
-      );
-        // Delete old image if it exists
-        try {
-          String oldImageUrl = await ref.getDownloadURL();
-          if (oldImageUrl.isNotEmpty) {
-            await ref.delete();
-            print('Old image deleted.');
-          }
-        } on FirebaseException catch (e) {
-  // Caught an exception from Firebase.
-  print("Failed with error '${e.code}': ${e.message}");
-}
 
-        print('Image uploaded successfully.');
-      } on FirebaseException catch (e) {
-  // Caught an exception from Firebase.
-  print("Failed with error '${e.code}': ${e.message}");
-   showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Column(
-              children: [
-                 Center(child: Text(e.message.toString())),
-                Center(child: Text(e.code)),
-              ],
-            ),
-          );
-        },
-      );
-}
-    } else {
-      print('No image picked.');
-    }
-  }
- Future<void> pickImage() async {
-  try{  final pickedImage = await _imagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
-    });} catch (e) {
-      print(e);
-    }
+  
+//  final ImagePicker _imagePicker = ImagePicker();
+  // File? _pickedImage;
+  // String? imageUrl;
+//   Future<void> uploadAndDeleteImage(String userId) async {
+//     if (_pickedImage != null) {
+//       final storage = FirebaseStorage.instance;
+//       final ref = storage.ref().child('$userId.jpg');
+//         showDialog(
+//         context: context,
+//         builder: (context) {
+//           return const AlertDialog(
+//             title: Column(
+//               children: [
+//                  Center(child: Text('iamge picked')),
+               
+//               ],
+//             ),
+//           );
+//         },
+//       );
+//       try {
+//         final appCheckToken = await FirebaseAppCheck.instance.getToken();
+//         showDialog(
+//         context: context,
+//         builder: (context) {
+//           return  AlertDialog(
+//             title: Column(
+//               children: [
+//                  Center(child: Text('$appCheckToken')),
+               
+//               ],
+//             ),
+//           );
+//         },
+//       );
+//       await ref.putFile(_pickedImage!,);
+//         // Upload new image
+//     //     await ref.putFile(_pickedImage!, SettableMetadata(
+//     // customMetadata: {"X-Firebase-AppCheck" : '$appCheckToken'},
+  
+  
+//   //  imageUrl = await ref.getDownloadURL();
+//     showDialog(
+//         context: context,
+//         builder: (context) {
+//           return AlertDialog(
+//             title: Column(
+//               children: [
+//                  Center(child: Text(imageUrl.toString())),
+                
+//               ],
+//             ),
+//           );
+//         },
+//       );
+//         // Delete old image if it exists
+//         try {
+//           String oldImageUrl = await ref.getDownloadURL();
+//           if (oldImageUrl.isNotEmpty) {
+//             await ref.delete();
+//             print('Old image deleted.');
+//           }
+//         } on FirebaseException catch (e) {
+//   // Caught an exception from Firebase.
+//   print("Failed with error '${e.code}': ${e.message}");
+// }
+
+//         print('Image uploaded successfully.');
+//       } on FirebaseException catch (e) {
+//   // Caught an exception from Firebase.
+//   print("Failed with error '${e.code}': ${e.message}");
+//    showDialog(
+//         context: context,
+//         builder: (context) {
+//           return AlertDialog(
+//             title: Column(
+//               children: [
+//                  Center(child: Text(e.message.toString())),
+//                 Center(child: Text(e.code)),
+//               ],
+//             ),
+//           );
+//         },
+//       );
+// }
+//     } else {
+//       print('No image picked.');
+//     }
+//   }
+//  Future<void> pickImage() async {
+//   try{  final pickedImage = await _imagePicker.pickImage(source: ImageSource.gallery);
+//     setState(() {
+//       _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
+//     });} catch (e) {
+//       print(e);
+//     }
     
-  }
+//   }
 
 
 
@@ -500,7 +504,7 @@ class _AddserviceState extends State<Addservice> {
             'describtion': describtion,
             'location': location,
             'fireservice': firservice,
-             'imageUrl': imageUrl,
+            //  'imageUrl': imageUrl,
           })
           // .whenComplete(() => Navigator.of(context).pushReplacementNamed('/homepage'))
           .then((value) => print("User Added"))
@@ -571,22 +575,22 @@ class _AddserviceState extends State<Addservice> {
                   // Submit button
                   return Column(
                     children: [
-                       Center(
-                        child: ElevatedButton(
-                          onPressed: pickImage,
-                          child: Text("add image".tr),
-                        ),
-                      ),
+                      //  Center(
+                      //   child: ElevatedButton(
+                      //     onPressed: pickImage,
+                      //     child: Text("add image".tr),
+                      //   ),
+                      // ),
     
                       Center(
                         child: ElevatedButton(
                           onPressed: (){
-                             if (_pickedImage != null) {
-                              uploadAndDeleteImage(FirebaseAuth.instance.currentUser!.uid); // Replace with the actual user ID
+                            //  if (_pickedImage != null) {
+                            //   uploadAndDeleteImage(FirebaseAuth.instance.currentUser!.uid); // Replace with the actual user ID
+                            //   save();
+                            // } else {
                               save();
-                            } else {
-                              save();
-                            }
+                            // }
                           } ,
                           child: Text("save".tr),
                         ),
