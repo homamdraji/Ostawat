@@ -117,7 +117,7 @@ class _Drawer1State extends State<Drawer1> {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('version : 1.0.0'.tr),
+              child: Text('version : 1.0.1'.tr),
             )
             ],
           ),
