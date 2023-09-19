@@ -115,6 +115,7 @@ class _Drawer1State extends State<Drawer1> {
         ),
           const SizedBox(height: 30,),
 
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text('version : 1.0.1'.tr),
