@@ -127,7 +127,13 @@ class _Drawer1State extends State<Drawer1> {
         ]
       );} catch (e) {
         print(e);
-       return Center(child: Text('weak networks'.tr));
+       return Column(
+         children: [
+           Center(child: Text('weak networks'.tr)),
+            Center(child: Text(e.toString())),
+         ],
+       );
+
       }} 
        return const Center(child: CircularProgressIndicator(),);
        },
