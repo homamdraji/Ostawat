@@ -6,6 +6,9 @@
     <array>
         <string>https</string>
     </array>
+	
+
+	
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
