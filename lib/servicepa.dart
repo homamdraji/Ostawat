@@ -96,10 +96,10 @@ class _ServicepaState extends State<Servicepa> {
                           child:  Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [ Expanded(flex: 1,
-                            child: Container(),
-                              // child: data['imageurl'] !=null ? 
-                              // Image(image: NetworkImage(data['imageUrl'])):
-                              // Image( image:  AssetImage(widget.image),),
+                            // child: Container(),
+                              child: data['imageurl'] !=null ? 
+                              Image(image: NetworkImage(data['imageUrl'])):
+                              Image( image:  AssetImage(widget.image),),
                              
                                 ),
                                Expanded(

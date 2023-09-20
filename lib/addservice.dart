@@ -399,12 +399,12 @@ class _AddserviceState extends State<Addservice> {
        
       await ref.putFile(_pickedImage!,metadata);
         
-    //     await ref.putFile(_pickedImage!, SettableMetadata(
-    // customMetadata: {"X-Firebase-AppCheck" : '$appCheckToken'},
+   
   
-  
-  //  imageUrl = await ref.getDownloadURL()
-  //  ));
+  setState(() async {
+    imageUrl = await ref.getDownloadURL();
+  });
+ 
     showDialog(
         context: context,
         builder: (context) {
@@ -515,7 +515,7 @@ class _AddserviceState extends State<Addservice> {
             'describtion': describtion,
             'location': location,
             'fireservice': firservice,
-            //  'imageUrl': imageUrl,
+             'imageUrl': imageUrl,
           })
           // .whenComplete(() => Navigator.of(context).pushReplacementNamed('/homepage'))
           .then((value) => print("User Added"))
@@ -586,22 +586,22 @@ class _AddserviceState extends State<Addservice> {
                   // Submit button
                   return Column(
                     children: [
-                      //  Center(
-                      //   child: ElevatedButton(
-                      //     onPressed: pickImage,
-                      //     child: Text("add image".tr),
-                      //   ),
-                      // ),
+                       Center(
+                        child: ElevatedButton(
+                          onPressed: pickImage,
+                          child: Text("add image".tr),
+                        ),
+                      ),
     
                       Center(
                         child: ElevatedButton(
                           onPressed: (){
-                            //  if (_pickedImage != null) {
-                            //   uploadAndDeleteImage(FirebaseAuth.instance.currentUser!.uid); // Replace with the actual user ID
-                            //   save();
-                            // } else {
+                             if (_pickedImage != null) {
+                              uploadAndDeleteImage(FirebaseAuth.instance.currentUser!.uid); // Replace with the actual user ID
                               save();
-                            // }
+                            } else {
+                              save();
+                             }
                           } ,
                           child: Text("save".tr),
                         ),
