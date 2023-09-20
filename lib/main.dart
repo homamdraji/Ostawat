@@ -24,7 +24,10 @@ void main() async {
   await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,  
   );
-  await FirebaseAppCheck.instance.activate();
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.playIntegrity ,
+    appleProvider: AppleProvider.appAttest,
+  );
   var user = FirebaseAuth.instance.currentUser ;
   if (user == null) {
     islogin = false ;

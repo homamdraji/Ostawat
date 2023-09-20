@@ -6,9 +6,11 @@
     <array>
         <string>https</string>
     </array>
-	
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photo library to allow you to select and upload photos for your profile picture.</string>
 
-	
+
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
