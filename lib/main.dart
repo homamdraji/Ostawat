@@ -25,6 +25,7 @@ void main() async {
   options: DefaultFirebaseOptions.currentPlatform,  
   );
   await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
    appleProvider: AppleProvider.deviceCheck
   );
   var user = FirebaseAuth.instance.currentUser ;

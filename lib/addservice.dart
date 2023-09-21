@@ -1,11 +1,12 @@
 
-// ignore_for_file: prefer_typing_uninitialized_variables, empty_catches, avoid_print, use_build_context_synchronously
+// ignore_for_file: prefer_typing_uninitialized_variables, empty_catches, avoid_print, use_build_context_synchronously, depend_on_referenced_packages
 
 
 
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -366,7 +367,31 @@ class _AddserviceState extends State<Addservice> {
       final ref = storage.ref().child('$userId.jpg');
       
       try {
-      //   final appCheckToken = await FirebaseAppCheck.instance.getToken();
+        final appCheckToken = await FirebaseAppCheck.instance.getToken(true);
+         if (appCheckToken != null) {
+        await ref.putFile(_pickedImage!, SettableMetadata(
+          customMetadata: {
+            'app_check_token': appCheckToken,
+          },
+        ) );
+        
+         showDialog(context: context, 
+                    builder: (context){
+                  return  const AlertDialog(
+                   title: Center(child: Text('app check is here')),
+                 );
+               });
+        await ref.putFile(_pickedImage!,  );
+    } else {
+         showDialog(context: context, 
+                    builder: (context){
+                  return  AlertDialog(
+                   title: Center(child: Text(appCheckToken!)),
+                 );
+               });
+    }
+       
+        
       //      final metadata = SettableMetadata(
       //   customMetadata: {'app_check_token': '$appCheckToken'},
       // );
@@ -374,7 +399,7 @@ class _AddserviceState extends State<Addservice> {
        
                
               
-      await ref.putFile(_pickedImage!,);
+      
         
    
   
@@ -414,41 +439,7 @@ class _AddserviceState extends State<Addservice> {
     }
     
   }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
-
-  Future<void> fetchData() async {
-    try {
-    DocumentSnapshot docSnapshot = await FirebaseFirestore.instance
-        .collection('service')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-
-    if (docSnapshot.exists) {
-      data = docSnapshot.data() as Map<String, dynamic>;
-              bool isFree = docSnapshot['free'];
-      setState(() {
-        _isServiceFree = isFree; 
-//         // Update the state to trigger a UI update
-
-      });
-    } else {
-      print('Document does not exist.');
-    }}catch (e){
-        print('Error fetching data: $e');
-    }
-    finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
- 
-      save () async {
+     save () async {
         
       var formdata = formke.currentState;
         formdata!.save();
@@ -504,6 +495,39 @@ class _AddserviceState extends State<Addservice> {
          }
          
      }
+      Future<void> fetchData() async {
+    try {
+    DocumentSnapshot docSnapshot = await FirebaseFirestore.instance
+        .collection('service')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    if (docSnapshot.exists) {
+      data = docSnapshot.data() as Map<String, dynamic>;
+              bool isFree = docSnapshot['free'];
+      setState(() {
+        _isServiceFree = isFree; 
+//         // Update the state to trigger a UI update
+
+      });
+    } else {
+      print('Document does not exist.');
+    }}catch (e){
+        print('Error fetching data: $e');
+    }
+    finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
 
   
 
@@ -638,7 +662,7 @@ class _AddserviceState extends State<Addservice> {
                    onSaved: (newValue) {
                        describtion = newValue ;
                       } ,
-                      controller: data['describtion'] == null ? null :  TextEditingController( text:  '${data['describtion']}'),
+                      
                        validator:(text){
                          if ( text!.isEmpty){
                             return 'should not be empty'.tr ;

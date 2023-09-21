@@ -18,7 +18,7 @@ workflows:
       groups:
         - firebase_credentials
       ios_signing:
-        distribution_type: app_store
+        distribution_type: development
         bundle_identifier: io.Ostawat.classicCounter
         
       vars:
@@ -56,8 +56,8 @@ workflows:
       - name: Flutter build ipa
         script: | 
           flutter build ipa --release \
-            --build-name=1.1.3 \
-            --build-number=$(($(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID") + 3)) \
+            --build-name=1.1.4 \
+            --build-number=$(($(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID") + 4)) \
             --export-options-plist=/Users/builder/export_options.plist
     artifacts:
       - build/ios/ipa/*.ipa

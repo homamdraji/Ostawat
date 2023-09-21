@@ -24,9 +24,12 @@ Future<void> deleteUserAccount() async {
 
     // Delete the user's data (optional)
     // Implement data deletion from your Firebase services (e.g., Firestore, Realtime Database) before deleting the account.
-    await FirebaseFirestore.instance.collection('service').doc(user!.uid).delete().whenComplete(() => print('user delete') );
+   
     // Delete the user's account
-    await user.delete().whenComplete(() =>  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PhoneInputPage())));
+    await user!.delete().whenComplete(() async => await FirebaseFirestore.instance.collection('service')
+    .doc(user.uid).delete().whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PhoneInputPage())) )
+    
+     );
     
     print("User account deleted successfully");
   } catch (error) {
