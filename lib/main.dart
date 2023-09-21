@@ -25,7 +25,7 @@ void main() async {
   options: DefaultFirebaseOptions.currentPlatform,  
   );
   await FirebaseAppCheck.instance.activate(
-   
+   appleProvider: AppleProvider.deviceCheck
   );
   var user = FirebaseAuth.instance.currentUser ;
   if (user == null) {

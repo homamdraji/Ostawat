@@ -6,7 +6,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
+
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -364,40 +364,17 @@ class _AddserviceState extends State<Addservice> {
     if (_pickedImage != null) {
       final storage = FirebaseStorage.instance;
       final ref = storage.ref().child('$userId.jpg');
-        showDialog(
-        context: context,
-        builder: (context) {
-          return const AlertDialog(
-            title: Column(
-              children: [
-                 Center(child: Text('iamge picked')),
-               
-              ],
-            ),
-          );
-        },
-      );
+      
       try {
-        final appCheckToken = await FirebaseAppCheck.instance.getToken();
-           final metadata = SettableMetadata(
-        customMetadata: {'app_check_token': '$appCheckToken'},
-      );
+      //   final appCheckToken = await FirebaseAppCheck.instance.getToken();
+      //      final metadata = SettableMetadata(
+      //   customMetadata: {'app_check_token': '$appCheckToken'},
+      // );
 
-        showDialog(
-        context: context,
-        builder: (context) {
-          return  AlertDialog(
-            title: Column(
-              children: [
-                 Center(child: Text(appCheckToken!)),
-               
-              ],
-            ),
-          );
-        },
-      );
        
-      await ref.putFile(_pickedImage!,metadata);
+               
+              
+      await ref.putFile(_pickedImage!,);
         
    
   
@@ -405,19 +382,7 @@ class _AddserviceState extends State<Addservice> {
     imageUrl = await ref.getDownloadURL();
   });
  
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Column(
-              children: [
-                 Center(child: Text(imageUrl.toString())),
-                
-              ],
-            ),
-          );
-        },
-      );
+    
         // Delete old image if it exists
         try {
           String oldImageUrl = await ref.getDownloadURL();
@@ -425,28 +390,16 @@ class _AddserviceState extends State<Addservice> {
             await ref.delete();
             print('Old image deleted.');
           }
-        } on FirebaseException catch (e) {
+        } on FirebaseException {
   // Caught an exception from Firebase.
-  print("Failed with error '${e.code}': ${e.message}");
+ 
 }
 
         print('Image uploaded successfully.');
-      } on FirebaseException catch (e) {
+      } on FirebaseException {
   // Caught an exception from Firebase.
-  print("Failed with error '${e.code}': ${e.message}");
-   showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Column(
-              children: [
-                 Center(child: Text(e.message.toString())),
-                Center(child: Text(e.code)),
-              ],
-            ),
-          );
-        },
-      );
+ 
+  
 }
     } else {
       print('No image picked.');
@@ -461,8 +414,6 @@ class _AddserviceState extends State<Addservice> {
     }
     
   }
-
-
 
   @override
   void initState() {
